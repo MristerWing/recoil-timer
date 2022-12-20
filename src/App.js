@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRecoilValue } from 'recoil';
+import { timerState } from './recoil/timer';
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router';
+import Start from './pages/Start';
+import End from './pages/End';
+import Clear from './pages/Clear';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const timer = useRecoilValue(timerState);
+	useEffect(() => {
+		console.log('timer >>>>> ', timer);
+	}, [timer]);
+
+	return (
+		<Routes>
+			<Route path="/" element={<Start />} />
+			<Route path="/end" element={<End />} />
+			<Route path="/clear" element={<Clear />} />
+		</Routes>
+	);
 }
 
 export default App;
