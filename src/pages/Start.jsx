@@ -1,23 +1,9 @@
 import React from 'react';
-import { useRecoilCallback, useRecoilValue } from 'recoil';
-import { timerState } from '../recoil/timer';
 import { Link } from 'react-router-dom';
+import { useRecoilTimer } from '../hooks/useRecoilTimer';
 
 const Start = () => {
-	const timer = useRecoilValue(timerState);
-	const setTimer = useRecoilCallback(
-		({ snapshot, set, reset }) =>
-			async () => {
-				const timeId = setTimeout(() => {
-					console.log('set Timer!');
-					clearTimeout(timeId);
-					reset(timerState);
-				}, 3000);
-
-				set(timerState, timeId);
-				console.log('set time id: ', timeId);
-			}
-	);
+	const { timer, setTimer } = useRecoilTimer();
 	return (
 		<div className="App">
 			<h1>{timer === null ? '초기화' : timer}</h1>

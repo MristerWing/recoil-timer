@@ -1,22 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { timerState } from '../recoil/timer';
-import { useRecoilCallback, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 const Clear = () => {
 	const timer = useRecoilValue(timerState);
-	const clearTime = useRecoilCallback(({ snapshot, reset }) => async () => {
-		const id = await snapshot.getPromise(timerState);
-		console.log('clear timer id >>>>>', id);
-		if (id !== null) {
-			clearTimeout(id);
-			reset(timerState);
-		}
-	});
-
-	useEffect(() => {
-		clearTime();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [timer]);
 
 	return (
 		<div>
